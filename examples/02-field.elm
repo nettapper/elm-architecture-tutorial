@@ -15,12 +15,19 @@ main =
 -- MODEL
 
 type alias Model =
-  { content : String
+  { content: String
+  , other:   String
   }
+
+-- model : Model
+-- model =
+--   Model ""
 
 model : Model
 model =
-  Model ""
+    { content = ""
+    , other   = "My default value"
+    }
 
 
 -- UPDATE
