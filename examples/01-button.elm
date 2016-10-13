@@ -24,15 +24,17 @@ model =
 type Msg
   = Increment
   | Decrement
+  | Reset
 
 update : Msg -> Model -> Model
 update msg model =
   case msg of
     Increment ->
       model + 1
-
     Decrement ->
       model - 1
+    Reset ->
+      0
 
 
 -- VIEW
@@ -43,4 +45,6 @@ view model =
     [ button [ onClick Increment ] [ text "+" ]
     , div [] [ text (toString model) ]
     , button [ onClick Decrement ] [ text "-" ]
+    , div [] []
+    , button [ onClick Reset ] [ text "Reset" ]
     ]
