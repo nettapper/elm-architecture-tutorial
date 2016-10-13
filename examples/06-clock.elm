@@ -4,8 +4,6 @@ import Svg exposing (..)
 import Svg.Attributes exposing (..)
 import Time exposing (Time, second)
 
-
-
 main =
   Html.program
     { init = init
@@ -15,25 +13,19 @@ main =
     }
 
 
-
 -- MODEL
 
-
 type alias Model = Time
-
 
 init : (Model, Cmd Msg)
 init =
   (0, Cmd.none)
 
 
-
 -- UPDATE
-
 
 type Msg
   = Tick Time
-
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
@@ -42,28 +34,22 @@ update msg model =
       (newTime, Cmd.none)
 
 
-
 -- SUBSCRIPTIONS
-
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
   Time.every second Tick
 
 
-
 -- VIEW
-
 
 view : Model -> Html Msg
 view model =
   let
     angle =
       turns (Time.inMinutes model)
-
     handX =
       toString (50 + 40 * cos angle)
-
     handY =
       toString (50 + 40 * sin angle)
   in

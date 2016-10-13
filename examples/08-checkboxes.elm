@@ -3,15 +3,11 @@ import Html.App as App
 import Html.Attributes exposing (style, type')
 import Html.Events exposing (onClick)
 
-
-
 main =
   App.beginnerProgram { model = optOut, update = update, view = view }
 
 
-
 -- MODEL
-
 
 type alias Model =
   { notifications : Bool
@@ -19,38 +15,30 @@ type alias Model =
   , location : Bool
   }
 
-
 optOut : Model
 optOut =
   Model True True True
 
 
-
 -- UPDATE
-
 
 type Msg
   = ToggleNotifications
   | ToggleAutoplay
   | ToggleLocation
 
-
 update : Msg -> Model -> Model
 update msg model =
   case msg of
     ToggleNotifications ->
       { model | notifications = not model.notifications }
-
     ToggleAutoplay ->
       { model | autoplay = not model.autoplay }
-
     ToggleLocation ->
       { model | location = not model.location }
 
 
-
 -- VIEW
-
 
 view : Model -> Html Msg
 view model =
@@ -59,7 +47,6 @@ view model =
     , checkbox ToggleAutoplay "Video Autoplay"
     , checkbox ToggleLocation "Use Location"
     ]
-
 
 checkbox : msg -> String -> Html msg
 checkbox msg name =

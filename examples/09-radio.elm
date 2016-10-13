@@ -4,32 +4,25 @@ import Html.Attributes exposing (name, style, type')
 import Html.Events exposing (onClick)
 import Markdown
 
-
-
 main =
   App.beginnerProgram { model = chapter1, update = update, view = view }
 
 
-
 -- MODEL
-
 
 type alias Model =
   { fontSize : FontSize
   , content : String
   }
 
-
 type FontSize
   = Small
   | Medium
   | Large
 
-
 chapter1 : Model
 chapter1 =
   Model Medium intro
-
 
 intro : String
 intro = """
@@ -48,13 +41,10 @@ could not go on living in the same house with him...
 """
 
 
-
 -- UPDATE
-
 
 type Msg
   = SwitchTo FontSize
-
 
 update : Msg -> Model -> Model
 update msg model =
@@ -63,9 +53,7 @@ update msg model =
       { model | fontSize = newFontSize }
 
 
-
 -- VIEW
-
 
 view : Model -> Html Msg
 view model =
@@ -78,7 +66,6 @@ view model =
     , Markdown.toHtml [ sizeToStyle model.fontSize ] model.content
     ]
 
-
 radio : String -> msg -> Html msg
 radio value msg =
   label
@@ -88,7 +75,6 @@ radio value msg =
     , text value
     ]
 
-
 sizeToStyle : FontSize -> Attribute msg
 sizeToStyle fontSize =
   let
@@ -96,10 +82,8 @@ sizeToStyle fontSize =
       case fontSize of
         Small ->
           "0.8em"
-
         Medium ->
           "1em"
-
         Large ->
           "1.2em"
   in
