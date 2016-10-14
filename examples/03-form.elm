@@ -2,6 +2,7 @@ import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
+import String exposing (length)
 
 main =
   Html.beginnerProgram
@@ -62,7 +63,9 @@ viewValidation model =
 
 passwordValidation : String -> String -> (String, String)
 passwordValidation password passwordAgain =
-      if password == passwordAgain then
-        ("green", "OK")
-      else
+      if password /= passwordAgain then
         ("red", "Passwords do not match!")
+      else if Basics.max (String.length password) (String.length passwordAgain) < 8 then
+        ("red", "Passwords must be longer than 8 characters!")
+      else
+        ("green", "OK")
