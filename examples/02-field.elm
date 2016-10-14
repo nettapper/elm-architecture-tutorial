@@ -25,9 +25,9 @@ type alias Model =
 
 model : Model
 model =
-    { content = ""
-    , other   = "My default value"
-    }
+  { content = ""
+  , other   = "My default value"
+  }
 
 
 -- UPDATE

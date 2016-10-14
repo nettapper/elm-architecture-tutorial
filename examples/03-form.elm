@@ -36,10 +36,8 @@ update msg model =
   case msg of
     Name name ->
       { model | name = name }
-
     Password password ->
       { model | password = password }
-
     PasswordAgain password ->
       { model | passwordAgain = password }
 
