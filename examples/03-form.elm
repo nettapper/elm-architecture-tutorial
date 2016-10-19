@@ -63,9 +63,17 @@ viewValidation model =
 
 passwordValidation : String -> String -> (String, String)
 passwordValidation password passwordAgain =
-      if password /= passwordAgain then
-        ("red", "Passwords do not match!")
-      else if Basics.max (String.length password) (String.length passwordAgain) < 8 then
-        ("red", "Passwords must be longer than 8 characters!")
-      else
-        ("green", "OK")
+  let
+    isAllLowercase x = (String.toLower x) == x
+    hasUpperCase = (not (isAllLowercase password)) && (not (isAllLowercase passwordAgain))
+  in
+    if password /= passwordAgain then
+      ("red", "Passwords do not match!")
+    else if Basics.max (String.length password) (String.length passwordAgain) < 8 then
+      ("red", "Passwords must be longer than 8 characters!")
+    else if not hasUpperCase then
+      ("red", "Passwords must have upercase letters.")
+    else
+      ("green", "OK")
+
+-- ("red", "Passwords must have upercase letters, lower case letters and numeric characters.")
