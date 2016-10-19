@@ -17,19 +17,21 @@ main =
 
 type alias Model =
   { name : String
+  , age : String
   , password : String
   , passwordAgain : String
   }
 
 model : Model
 model =
-  Model "" "" ""
+  Model "" "" "" ""
 
 
 -- UPDATE
 
 type Msg
     = Name String
+    | Age String
     | Password String
     | PasswordAgain String
 
@@ -38,6 +40,8 @@ update msg model =
   case msg of
     Name name ->
       { model | name = name }
+    Age age ->
+      { model | age = age }
     Password password ->
       { model | password = password }
     PasswordAgain password ->
@@ -50,6 +54,7 @@ view : Model -> Html Msg
 view model =
   div []
     [ input [ type' "text", placeholder "Name", onInput Name ] []
+    , input [ type' "text", placeholder "Age", onInput Age ] []
     , input [ type' "password", placeholder "Password", onInput Password ] []
     , input [ type' "password", placeholder "Re-enter Password", onInput PasswordAgain ] []
     , viewValidation model
@@ -58,12 +63,12 @@ view model =
 viewValidation : Model -> Html msg
 viewValidation model =
   let
-    (color, message) = passwordValidation model.password model.passwordAgain
+    (color, message) = passwordValidation model.password model.passwordAgain model.age
   in
     div [ style [("color", color)] ] [ text message ]
 
-passwordValidation : String -> String -> (String, String)
-passwordValidation password passwordAgain =
+passwordValidation : String -> String -> String -> (String, String)
+passwordValidation password passwordAgain age =
   let
     isAllLowerCase x = (String.toLower x) == x
     hasUpperCase     = (not (isAllLowerCase password)) && (not (isAllLowerCase passwordAgain))
@@ -71,6 +76,8 @@ passwordValidation password passwordAgain =
     hasLowerCase     = (not (isAllUpperCase password)) && (not (isAllUpperCase passwordAgain))
     digits x         = String.filter isDigit x
     hasDigits        = (String.length (digits password) > 0) && (String.length (digits passwordAgain) > 0)
+    ageLength        = (String.length (digits age))
+    ageIsANumber     =  (ageLength == (String.length age)) && (ageLength > 0)
   in
     if password /= passwordAgain then
       ("red", "Passwords do not match!")
@@ -82,6 +89,8 @@ passwordValidation password passwordAgain =
       ("red", "Passwords must have lowercase letters.")
     else if not hasDigits then
       ("red", "Passwords must have digits.")
+    else if not ageIsANumber then
+      ("red", "Age must be a number.")
     else
       ("green", "OK")
 
