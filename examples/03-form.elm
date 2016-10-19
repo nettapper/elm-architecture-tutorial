@@ -66,11 +66,11 @@ passwordValidation : String -> String -> (String, String)
 passwordValidation password passwordAgain =
   let
     isAllLowerCase x = (String.toLower x) == x
-    hasUpperCase = (not (isAllLowerCase password)) && (not (isAllLowerCase passwordAgain))
+    hasUpperCase     = (not (isAllLowerCase password)) && (not (isAllLowerCase passwordAgain))
     isAllUpperCase x = (String.toUpper x) == x
-    hasLowerCase = (not (isAllUpperCase password)) && (not (isAllUpperCase passwordAgain))
-    digits x = String.filter isDigit x
-    hasDigits = (String.length (digits password) > 0) && (String.length (digits passwordAgain) > 0)
+    hasLowerCase     = (not (isAllUpperCase password)) && (not (isAllUpperCase passwordAgain))
+    digits x         = String.filter isDigit x
+    hasDigits        = (String.length (digits password) > 0) && (String.length (digits passwordAgain) > 0)
   in
     if password /= passwordAgain then
       ("red", "Passwords do not match!")
