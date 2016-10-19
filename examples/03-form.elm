@@ -3,6 +3,7 @@ import Html.App as Html
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
 import String exposing (length)
+import Char exposing (isDigit)
 
 main =
   Html.beginnerProgram
@@ -68,6 +69,8 @@ passwordValidation password passwordAgain =
     hasUpperCase = (not (isAllLowerCase password)) && (not (isAllLowerCase passwordAgain))
     isAllUpperCase x = (String.toUpper x) == x
     hasLowerCase = (not (isAllUpperCase password)) && (not (isAllUpperCase passwordAgain))
+    digits x = String.filter isDigit x
+    hasDigits = (String.length (digits password) > 0) && (String.length (digits passwordAgain) > 0)
   in
     if password /= passwordAgain then
       ("red", "Passwords do not match!")
@@ -77,6 +80,8 @@ passwordValidation password passwordAgain =
       ("red", "Passwords must have upercase letters.")
     else if not hasLowerCase then
       ("red", "Passwords must have lowercase letters.")
+    else if not hasDigits then
+      ("red", "Passwords must have digits.")
     else
       ("green", "OK")
 
